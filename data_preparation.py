@@ -5,12 +5,15 @@ import numpy as np
 def load_and_scale_data(file_path):
     data = pd.read_csv(file_path)
     scaler = MinMaxScaler()
-    data_scaled = scaler.fit_transform(data[['Otwarcie']])
+    data_scaled = scaler.fit_transform(data[['Zamkniecie']])
     return data_scaled, scaler
 
-def create_dataset(data, n_steps):
+def create_dataset(data, n_steps, future_steps=1):
     X, y = [], []
-    for i in range(n_steps, len(data)):
+    for i in range(n_steps, len(data) - future_steps + 1):
         X.append(data[i-n_steps:i, 0])
-        y.append(data[i, 0])
+        y_seq = data[i:i+future_steps, 0]
+        y.append(y_seq)
     return np.array(X), np.array(y)
+
+
