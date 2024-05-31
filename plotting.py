@@ -16,7 +16,7 @@ def plot_predictions(real_time_series, predicted_futures, real_futures, n_steps)
 
     if len(predicted_futures) > 1:
         # Dla wielu przewidywanych wartości rysujemy linię
-        plt.plot(range(n_steps, n_steps + len(predicted_futures)), predicted_futures, color='red', linestyle='--',
+        plt.plot(range(n_steps, n_steps + len(predicted_futures)), predicted_futures, color='red',
                  label='Przewidywane wartości przyszłe', zorder=2)
     else:
         # Dla jednej przewidywanej wartości używamy punktu

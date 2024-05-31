@@ -10,58 +10,146 @@ from tensorflow.keras import Model
 
 def create_model(input_shape):
     model = keras.models.Sequential([
-        keras.layers.SimpleRNN(20, return_sequences=True, input_shape=input_shape),
-        keras.layers.SimpleRNN(20),
-        keras.layers.Dense(1)
-    ])
-    model.compile(optimizer='adam', loss='mean_squared_error')
-    return model
-
-
-def create_lstm_model(input_shape, output_size=5):
-    model = keras.models.Sequential([
-        keras.layers.LSTM(50, return_sequences=True, input_shape=input_shape),
-        keras.layers.LSTM(50),
-        keras.layers.Dense(output_size)
-    ])
-    model.compile(optimizer='adam', loss='mean_squared_error')
-    return model
-
-def create_gru_model(input_shape):
-    model = keras.models.Sequential([
-        keras.layers.GRU(50, return_sequences=True, input_shape=input_shape),
-        keras.layers.GRU(50),
-        keras.layers.Dense(1)
-    ])
-    model.compile(optimizer='adam', loss='mean_squared_error')
-    return model
-
-
-# def create_lstm_cnn_model(input_shape):
-#     model = keras.models.Sequential([
-#         keras.layers.Conv1D(filters=64, kernel_size=5, strides=1, padding="causal", activation="relu", input_shape=input_shape),
-#         keras.layers.LSTM(50, return_sequences=True),
-#         keras.layers.LSTM(50),
-#         keras.layers.Dense(1)
-#     ])
-#     model.compile(optimizer='adam', loss='mean_squared_error')
-#     return model
-
-def create_lstm_cnn_model(input_shape, output_size=1):
-    model = keras.models.Sequential([
-        keras.layers.Conv1D(filters=64, kernel_size=5, strides=1, padding="causal", activation="relu", input_shape=input_shape),
-        keras.layers.BatchNormalization(),
-        keras.layers.LSTM(50, return_sequences=True),
+        keras.layers.SimpleRNN(50, return_sequences=True, input_shape=input_shape),
+        keras.layers.SimpleRNN(50),
+        keras.layers.Dense(50, activation='relu'),
         keras.layers.Dropout(0.2),
-        keras.layers.LSTM(50),
+        keras.layers.Dense(1)
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
+
+def create_lstm_model(input_shape, output_size=1):
+    model = keras.models.Sequential([
+        keras.layers.LSTM(100, return_sequences=True, input_shape=input_shape),
+        keras.layers.LSTM(100),
+        keras.layers.Dense(50, activation='relu'),
         keras.layers.Dropout(0.2),
         keras.layers.Dense(output_size)
     ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
     return model
 
+def create_gru_model(input_shape):
+    model = keras.models.Sequential([
+        keras.layers.GRU(100, return_sequences=True, input_shape=input_shape),
+        keras.layers.GRU(100),
+        keras.layers.Dense(50, activation='relu'),
+        keras.layers.Dropout(0.2),
+        keras.layers.Dense(1)
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
+
+def create_lstm_cnn_model(input_shape, output_size=1):
+    model = keras.models.Sequential([
+        keras.layers.Conv1D(filters=128, kernel_size=5, strides=1, padding="causal", activation="relu", input_shape=input_shape),
+        keras.layers.BatchNormalization(),
+        keras.layers.LSTM(100, return_sequences=True),
+        keras.layers.Dropout(0.3),
+        keras.layers.LSTM(100),
+        keras.layers.Dropout(0.3),
+        keras.layers.Dense(50, activation='relu'),
+        keras.layers.Dense(output_size)
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
+
+def create_cnn_lstm_model(input_shape, output_size=1):
+    model = Sequential([
+        keras.layers.Conv1D(filters=128, kernel_size=5, strides=1, padding="causal", activation="relu", input_shape=input_shape),
+        keras.layers.MaxPooling1D(pool_size=2),
+        keras.layers.Conv1D(filters=64, kernel_size=3, strides=1, padding="causal", activation="relu"),
+        keras.layers.LSTM(100, return_sequences=True),
+        keras.layers.LSTM(100),
+        keras.layers.Dense(50, activation='relu'),
+        keras.layers.Dropout(0.3),
+        keras.layers.Dense(output_size)
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
 
 
+def create_bilstm_model(input_shape, output_size=1):
+    model = Sequential([
+        keras.layers.Bidirectional(keras.layers.LSTM(100, return_sequences=True), input_shape=input_shape),
+        keras.layers.Bidirectional(keras.layers.LSTM(100)),
+        keras.layers.Dense(50, activation='relu'),
+        keras.layers.Dropout(0.3),
+        keras.layers.Dense(output_size)
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
+
+
+def create_gru_dropout_model(input_shape, output_size=1):
+    model = Sequential([
+        keras.layers.GRU(100, return_sequences=True, input_shape=input_shape),
+        keras.layers.Dropout(0.3),
+        keras.layers.GRU(100),
+        keras.layers.Dropout(0.3),
+        keras.layers.Dense(50, activation='relu'),
+        keras.layers.Dense(output_size)
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
+
+
+def res_block(x, filters, kernel_size):
+    shortcut = x
+    x = keras.layers.Conv1D(filters, kernel_size, padding='same', activation='relu')(x)
+    x = keras.layers.Conv1D(filters, kernel_size, padding='same')(x)
+
+    # Dopasowanie wymiaru shortcut
+    shortcut = keras.layers.Conv1D(filters, 1, padding='same')(shortcut)
+
+    x = keras.layers.Add()([x, shortcut])
+    x = keras.layers.Activation('relu')(x)
+    return x
+
+
+def create_resnet_model(input_shape, output_size=1):
+    inputs = keras.Input(shape=input_shape)
+    x = keras.layers.Conv1D(64, kernel_size=3, padding='same', activation='relu')(inputs)
+    x = res_block(x, 64, 3)
+    x = keras.layers.MaxPooling1D(pool_size=2)(x)
+
+    x = res_block(x, 128, 3)
+    x = keras.layers.MaxPooling1D(pool_size=2)(x)
+
+    x = res_block(x, 256, 3)
+    x = keras.layers.GlobalAveragePooling1D()(x)
+
+    x = keras.layers.Dense(128, activation='relu')(x)
+    x = keras.layers.Dropout(0.3)(x)
+
+    outputs = keras.layers.Dense(output_size)(x)
+    model = keras.Model(inputs, outputs)
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
+
+
+def create_attention_model(input_shape, output_size=1):
+    inputs = keras.Input(shape=input_shape)
+    x = keras.layers.LSTM(100, return_sequences=True)(inputs)
+    x = keras.layers.LSTM(100, return_sequences=True)(x)
+
+    attention = keras.layers.Dense(1, activation='tanh')(x)
+    attention = keras.layers.Flatten()(attention)
+    attention = keras.layers.Activation('softmax')(attention)
+    attention = keras.layers.RepeatVector(100)(attention)
+    attention = keras.layers.Permute([2, 1])(attention)
+
+    x = keras.layers.multiply([x, attention])
+    x = keras.layers.LSTM(100)(x)
+
+    x = keras.layers.Dense(50, activation='relu')(x)
+    x = keras.layers.Dropout(0.3)(x)
+    outputs = keras.layers.Dense(output_size)(x)
+
+    model = keras.Model(inputs, outputs)
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
+    return model
 
 
 def create_transformer_model(input_shape, output_size=1, head_size=64, num_heads=4, ff_dim=4, num_transformer_blocks=3,
