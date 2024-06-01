@@ -8,13 +8,13 @@ from tensorflow.keras.layers import Dense, Dropout, MultiHeadAttention, LayerNor
 from tensorflow.keras import Model
 
 
-def create_model(input_shape):
+def create_model(input_shape, output_size = 1):
     model = keras.models.Sequential([
         keras.layers.SimpleRNN(50, return_sequences=True, input_shape=input_shape),
         keras.layers.SimpleRNN(50),
         keras.layers.Dense(50, activation='relu'),
         keras.layers.Dropout(0.2),
-        keras.layers.Dense(1)
+        keras.layers.Dense(output_size)
     ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
     return model
@@ -30,13 +30,13 @@ def create_lstm_model(input_shape, output_size=1):
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
     return model
 
-def create_gru_model(input_shape):
+def create_gru_model(input_shape, output_size=1):
     model = keras.models.Sequential([
         keras.layers.GRU(100, return_sequences=True, input_shape=input_shape),
         keras.layers.GRU(100),
         keras.layers.Dense(50, activation='relu'),
         keras.layers.Dropout(0.2),
-        keras.layers.Dense(1)
+        keras.layers.Dense(output_size)
     ])
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error')
     return model
