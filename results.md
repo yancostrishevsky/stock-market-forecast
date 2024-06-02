@@ -56,25 +56,47 @@ Epoch 21: MASE train = 1.7046, MASE val = 1.6066
 Epoch 26: MASE train = 1.8987, MASE val = 2.0633
 53/53 ━━━━━━━━━━━━━━━━━━━━ 14s 269ms/step - loss: 0.0026 - val_loss: 0.0023 - mase_train: 1.8987 - mase_val: 2.0633
 ### model bilstm output size 1:
-
+poch 87: MASE train = 1.0281, MASE val = 1.0154
+53/53 ━━━━━━━━━━━━━━━━━━━━ 15s 290ms/step - loss: 0.0012 - val_loss: 5.2226e-04 - mase_train: 1.0281 - mase_val: 1.0154
 ### model bilstm output size 3:
-
+Epoch 69: MASE train = 1.4435, MASE val = 1.4143
+53/53 ━━━━━━━━━━━━━━━━━━━━ 17s 327ms/step - loss: 0.0018 - val_loss: 9.9869e-04 - mase_train: 1.4435 - mase_val: 1.4143
 ### model bilstm output size 5:
-
+Epoch 85: MASE train = 1.7464, MASE val = 1.6624
+53/53 ━━━━━━━━━━━━━━━━━━━━ 17s 328ms/step - loss: 0.0022 - val_loss: 0.0014 - mase_train: 1.7464 - mase_val: 1.6624
 ### model gru dropout output size 1:
-
+Epoch 74: MASE train = 1.0349, MASE val = 0.9974
+53/53 ━━━━━━━━━━━━━━━━━━━━ 20s 380ms/step - loss: 7.8107e-04 - val_loss: 5.0093e-04 - mase_train: 1.0349 - mase_val: 0.9974
 ### model gru dropout output size 3:
-
+Epoch 36/100
+53/53 ━━━━━━━━━━━━━━━━━━━━ 5s 103ms/step
+16/16 ━━━━━━━━━━━━━━━━━━━━ 1s 79ms/step
+Epoch 36: MASE train = 1.4815, MASE val = 1.4254
+53/53 ━━━━━━━━━━━━━━━━━━━━ 24s 456ms/step - loss: 0.0012 - val_loss: 9.9972e-04 - mase_train: 1.4815 - mase_val: 1.4254
 ### model gru dropout output size 5:
-
+Epoch 46: MASE train = 1.7267, MASE val = 1.7018
+53/53 ━━━━━━━━━━━━━━━━━━━━ 12s 236ms/step - loss: 0.0016 - val_loss: 0.0014 - mase_train: 1.7267 - mase_val: 1.7018
 ### model resnet output size 1:
-
+Epoch 34: MASE train = 1.0056, MASE val = 1.1328
+53/53 ━━━━━━━━━━━━━━━━━━━━ 4s 72ms/step - loss: 0.0024 - val_loss: 6.3664e-04 - mase_train: 1.0056 - mase_val: 1.1328
 ### model resnet output size 3:
-
+Epoch 21: MASE train = 1.4491, MASE val = 1.6822
+53/53 ━━━━━━━━━━━━━━━━━━━━ 5s 90ms/step - loss: 0.0044 - val_loss: 0.0015 - mase_train: 1.4491 - mase_val: 1.6822
 ### model resnet output size 5:
-
+Epoch 37: MASE train = 1.6981, MASE val = 1.9844
+53/53 ━━━━━━━━━━━━━━━━━━━━ 4s 69ms/step - loss: 0.0028 - val_loss: 0.0020 - mase_train: 1.6981 - mase_val: 1.9844
 ### model attention output size 1:
-
+Epoch 24/100
+53/53 ━━━━━━━━━━━━━━━━━━━━ 5s 102ms/step
+16/16 ━━━━━━━━━━━━━━━━━━━━ 2s 96ms/step 
+Epoch 24: MASE train = 1.8783, MASE val = 3.1363
+53/53 ━━━━━━━━━━━━━━━━━━━━ 19s 368ms/step - loss: 0.0067 - val_loss: 0.0057 - mase_train: 1.8783 - mase_val: 3.1363
 ### model attention output size 3:
-
+Epoch 22: MASE train = 2.6105, MASE val = 3.3674
+53/53 ━━━━━━━━━━━━━━━━━━━━ 14s 258ms/step - loss: 0.0066 - val_loss: 0.0061 - mase_train: 2.6105 - mase_val: 3.3674
 ### model attention output size 5:
+Epoch 32/100
+53/53 ━━━━━━━━━━━━━━━━━━━━ 3s 65ms/step
+16/16 ━━━━━━━━━━━━━━━━━━━━ 1s 70ms/step
+Epoch 32: MASE train = 2.2612, MASE val = 3.0596
+53/53 ━━━━━━━━━━━━━━━━━━━━ 15s 292ms/step - loss: 0.0053 - val_loss: 0.0049 - mase_train: 2.2612 - mase_val: 3.0596

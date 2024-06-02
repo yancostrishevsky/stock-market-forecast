@@ -8,7 +8,7 @@ file_path = 'wig20_d.csv'
 data_scaled, scaler = load_and_scale_data(file_path)
 
 n_steps = 90
-future_steps = 1
+future_steps = 3
 
 X, y = create_dataset(data_scaled, n_steps, future_steps=future_steps)
 
@@ -27,10 +27,10 @@ X_test = X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
 input_shape = (n_steps, 1)
 
 mase_callback = MASECallback(y_train, y_valid, X_train, X_valid)
-model = create_bilstm_model(input_shape, output_size=future_steps)
+model = create_attention_model(input_shape, output_size=future_steps)
 history = train_model(model, X_train, y_train, X_valid, y_valid, callbacks=[mase_callback])
 
-save_model(model, 'model_bilstm_1.keras')
+save_model(model, 'models/model_attention_3.keras')
 
 
 y_pred = model.predict(X_test)

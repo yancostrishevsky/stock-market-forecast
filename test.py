@@ -25,7 +25,7 @@ X_test = X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
 
 input_shape = (n_steps, 1)
 
-path = 'model_lstm_cnn.keras'
+path = 'models/model_lstm_cnn.keras'
 model = load_model(path)
 
 
