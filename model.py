@@ -214,7 +214,7 @@ def train_model(model, X_train, y_train, X_valid, y_valid, callbacks=None):
 
 
 def save_model(model, file_name):
-    model.save(file_name)
+    model.save(file_name, include_optimizer=False)
 
 def load_model(file_name):
     return keras.models.load_model(file_name)

@@ -8,7 +8,7 @@ def plot_predictions(real_time_series, predicted_futures, real_futures, n_steps)
     extended_time_series_x = list(range(n_steps)) + [n_steps + i for i in range(len(real_futures))]
 
     # Rozszerzamy rzeczywistą serię czasową o rzeczywiste przyszłe wartości
-    extended_time_series_y = list(real_time_series) + list(real_futures)
+    extended_time_series_y = list(real_time_series[-30:]) + list(real_futures)
 
     # Rysujemy rozszerzoną rzeczywistą serię czasową
     plt.plot(extended_time_series_x, extended_time_series_y, label='Rzeczywista seria czasowa + przyszłość', marker='.',
@@ -17,14 +17,14 @@ def plot_predictions(real_time_series, predicted_futures, real_futures, n_steps)
     if len(predicted_futures) > 1:
         # Dla wielu przewidywanych wartości rysujemy linię
         plt.plot(range(n_steps, n_steps + len(predicted_futures)), predicted_futures, color='red',
-                 label='Przewidywane wartości przyszłe', zorder=2)
+                 label='Przewidywane wartości przyszłe',marker='.', zorder=2)
     else:
         # Dla jednej przewidywanej wartości używamy punktu
         plt.scatter(n_steps, predicted_futures[0], color='red', label='Przewidywana wartość przyszła', zorder=2)
 
     plt.title('Porównanie rzeczywistych i przewidywanych wartości serii czasowej')
-    plt.xlabel('Czas')
-    plt.ylabel('Wartość')
+    plt.xlabel('Czas[dni]')
+    plt.ylabel('Wartość[zł]')
     plt.legend()
     plt.grid(True)
     plt.show()

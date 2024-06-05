@@ -52,7 +52,7 @@ Epoch 42: MASE train = 1.4053, MASE val = 1.2690
 ### model lstm cnn output size 3:
 Epoch 21: MASE train = 1.7046, MASE val = 1.6066
 53/53 ━━━━━━━━━━━━━━━━━━━━ 14s 266ms/step - loss: 0.0030 - val_loss: 0.0013 - mase_train: 1.7046 - mase_val: 1.6066
-### model lstm cnn output size 1:
+### model lstm cnn output size 5:
 Epoch 26: MASE train = 1.8987, MASE val = 2.0633
 53/53 ━━━━━━━━━━━━━━━━━━━━ 14s 269ms/step - loss: 0.0026 - val_loss: 0.0023 - mase_train: 1.8987 - mase_val: 2.0633
 ### model bilstm output size 1:
